@@ -1,0 +1,27 @@
+{
+  "name": "Dev_Connector",
+  "version": "1.0.0",
+  "description": "Social Network App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "author": "Fayyaz Ali Khan",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "config": "^3.1.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.1.0",
+    "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.1",
+    "nodemon": "^1.19.1"
+  }
+}
