@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://fayyaz123:fayyaz123@cluster0-ebuly.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://fayyaz123:fayyaz123@cluster0-ebuly.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "My_Secret_Token"
 }
