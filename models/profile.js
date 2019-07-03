@@ -5,13 +5,13 @@ const profileSchema = new mongoose.Schema({
     ref: "user"
   },
   company: {
-    type: toString
+    type: String
   },
   website: {
-    type: toString
+    type: String
   },
   location: {
-    type: toString
+    type: String
   },
   status: {
     type: String,
@@ -107,3 +107,4 @@ const profileSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+module.exports = Profile = mongoose.model("profile", profileSchema);
