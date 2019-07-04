@@ -160,7 +160,7 @@ router.put(
       check("title", "Title is Required")
         .not()
         .isEmpty(),
-      check("company", "Comany is Required")
+      check("company", "Company is Required")
         .not()
         .isEmpty(),
       check("from", "From date is Required")
@@ -168,6 +168,62 @@ router.put(
         .isEmpty()
     ]
   ],
-  async (req, res) => {}
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const {
+      title,
+      company,
+      location,
+      from,
+      to,
+      current,
+      description
+    } = req.body;
+    const newExp = {
+      title,
+      company,
+      location,
+      from,
+      to,
+      current,
+      description
+    };
+    try {
+      const profile = await Profile.findOne({ user: req.user.id }); //req.user.id get from token
+      if (!profile) {
+        return res.status(400).send("No Profile Found");
+      }
+      profile.experience.unshift(newExp);
+      await profile.save();
+      res.json(profile);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Server Error");
+    }
+  }
 );
+
+// route delete api/profile/experience/exp_id
+// desc Delete experience from profile
+// access Private
+router.delete("/experience/:exp_id", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id }); //req.user.id get from token
+    if (!profile) {
+      return res.status(400).send("No Profile Found");
+    }
+    const removeIndex = profile.experience
+      .map(item => item.id)
+      .indexOf(req.params.exp_id);
+    profile.experience.splice(removeIndex, 1);
+    await profile.save();
+    res.json(profile);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
 module.exports = router;
