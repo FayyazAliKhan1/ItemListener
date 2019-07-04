@@ -120,13 +120,54 @@ router.get("/user/:user_id", async (req, res) => {
       user: req.params.user_id
     }).populate("user", ["name", "avatar"]);
     if (!profile) {
-      return res.status(400).json({ msg: "There is no profile for this user" });
+      return res.status(400).json({ msg: "Profile not found" });
     }
 
     res.json(profile);
   } catch (error) {
     console.error(error.message);
+    if (err.kind == "ObjectId") {
+      return res.status(400).json({ msg: "Profile not Found" });
+    }
     res.status(500).send("Server Error");
   }
 });
+// route delete api/profile
+// desc Delete profile user & post
+// access Private
+router.delete("/", auth, async (req, res) => {
+  try {
+    // remove users post
+
+    //Remove Profile
+    await Profile.findOneAndRemove({ user: req.user.id });
+    // remove User
+    await User.findOneAndRemove({ _id: req.user.id });
+    res.json({ msg: "User Deleted" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+// route PUT api/profile/experience
+// desc ADD Profile experience
+// access Private
+router.put(
+  "/experience",
+  [
+    auth,
+    [
+      check("title", "Title is Required")
+        .not()
+        .isEmpty(),
+      check("company", "Comany is Required")
+        .not()
+        .isEmpty(),
+      check("from", "From date is Required")
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {}
+);
 module.exports = router;
