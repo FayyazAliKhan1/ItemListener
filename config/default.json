@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://fayyaz123:fayyaz123@cluster0-ebuly.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "My_Secret_Token"
+  "jwtSecret": "My_Secret_Token",
+  "githubClientId": "2a76ec4f05c71bb5d7e9",
+  "githubSecret": "4c42413f890a63136f4346fdbc01a9b1e2f7e7b9"
 }
