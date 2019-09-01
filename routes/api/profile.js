@@ -4,6 +4,7 @@ const router = express.Router();
 const config = require("config");
 const auth = require("../../middleware/auth");
 const Profile = require("../../models/profile");
+const Post = require("../../models/Post");
 const { check, validationResult } = require("express-validator");
 //const User = require("../../models/user");
 
@@ -89,7 +90,7 @@ router.post(
           { $set: profileFields },
           { new: true }
         );
-        res.json(profile);
+        return res.json(profile);
       }
       // Create Profile if not
       profile = new Profile(profileFields);
@@ -140,7 +141,7 @@ router.get("/user/:user_id", async (req, res) => {
 router.delete("/", auth, async (req, res) => {
   try {
     // remove users post
-
+    await Post.deleteMany({ user: req.user.id });
     //Remove Profile
     await Profile.findOneAndRemove({ user: req.user.id });
     // remove User

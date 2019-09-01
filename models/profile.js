@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const profileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
+    ref: "users"
   },
   company: {
     type: String
@@ -125,4 +125,4 @@ const profileSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-module.exports = Profile = mongoose.model("profile", profileSchema);
+module.exports = Profile = mongoose.model("profiles", profileSchema);
